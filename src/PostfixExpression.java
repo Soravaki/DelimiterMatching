@@ -5,7 +5,9 @@ public class PostfixExpression {
     String[] character;
     public PostfixExpression(String expression) {
         this.expression = expression;
-        character = expression.split("");
+        character = expression.split(" ");
+        checkValues();
+        System.out.println(s.peek());
     }
 
     public void checkValues(){
@@ -13,22 +15,23 @@ public class PostfixExpression {
         for (String value : character){
             if (DigitCheck(value)){
                 s.push(value);
+                System.out.println(value);
             }
             else{
-                int num1 = Integer.parseInt(s.pop());
-                int num2 = Integer.parseInt(s.pop());
+                double num1 = Double.parseDouble(s.pop());
+                double num2 = Double.parseDouble(s.pop());
                 switch(value){
-                    // Change to string when work
-                    case "+"->{s.push(num1 + num2);}
-                    case "-"->{s.push(num1 - num2);}
+                    case "+"-> s.push(Double.toString(num1 + num2));
+                    case "-"-> s.push(Double.toString(num1 - num2));
+                    case "*"-> s.push(Double.toString(num1 * num2));
+                    case "/"-> s.push(Double.toString(num2 / num1));
                 }
+                System.out.println(num1+value+num2+"="+s.peek()  );
             }
         }
     }
 
     public boolean DigitCheck(String character){
-        //System.out.println("'"+ character+"' is a number");
-        //System.out.println("'"+ character +"' is a letter");
         return Character.isDigit(character.charAt(0));
     }
 }
